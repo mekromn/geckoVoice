@@ -16,6 +16,12 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "0.1.0"
+
+        // Pixel 9 Pro XL validation build: package only the native architecture the device uses.
+        // This removes ARMv7/x86 Gecko binaries without changing Gecko rendering or runtime fidelity.
+        ndk {
+            abiFilters += listOf("arm64-v8a")
+        }
     }
 
     buildTypes {

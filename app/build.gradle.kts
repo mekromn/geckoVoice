@@ -4,7 +4,11 @@ plugins {
 
 android {
     namespace = "com.mekromn.geckovoice"
-    compileSdk = 37
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 1
+        }
+    }
 
     defaultConfig {
         applicationId = "com.mekromn.geckovoice"
@@ -25,6 +29,10 @@ android {
                 "proguard-rules.pro",
             )
         }
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     compileOptions {

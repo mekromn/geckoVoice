@@ -23,10 +23,10 @@ class VoicePermissionDelegate(
 
     override fun onAndroidPermissionsRequest(
         session: GeckoSession,
-        permissions: Array<out String>,
+        permissions: Array<out String>?,
         callback: GeckoSession.PermissionDelegate.Callback,
     ) {
-        val missing = permissions.filter {
+        val missing = permissions.orEmpty().filter {
             ContextCompat.checkSelfPermission(activity, it) != PackageManager.PERMISSION_GRANTED
         }
 

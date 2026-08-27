@@ -82,7 +82,9 @@ class WebPushBridge(
         if (prefs.getString(KEY_SCOPE, null) == scopeName) {
             prefs.edit().remove(KEY_SCOPE).remove(KEY_APP_SERVER_KEY).apply()
         }
-        return GeckoResult<Void>().apply { complete(null) }
+        val result = GeckoResult<Void>()
+        result.complete(null)
+        return result
     }
 
     /** Called by FirebaseMessagingService whenever FCM rotates the device token. */
@@ -128,16 +130,13 @@ class WebPushBridge(
     }
 
     private fun persistSubscription(scopeName: String, appServerKey: ByteArray?) {
-        prefs.edit()
-            .putString(KEY_SCOPE, scopeName)
-            .apply {
-                if (appServerKey == null) {
-                    remove(KEY_APP_SERVER_KEY)
-                } else {
-                    putString(KEY_APP_SERVER_KEY, encode(appServerKey))
-                }
-            }
-            .apply()
+        val editor = prefs.edit().putString(KEY_SCOPE, scopeName)
+        if (appServerKey == null) {
+            editor.remove(KEY_APP_SERVER_KEY)
+        } else {
+            editor.putString(KEY_APP_SERVER_KEY, encode(appServerKey))
+        }
+        editor.apply()
     }
 
     private fun readAppServerKey(): ByteArray? =

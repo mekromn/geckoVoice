@@ -1,0 +1,31 @@
+services:
+  relay:
+    image: docker.io/etatarka/webpush-fcm-relay:latest
+    restart: unless-stopped
+    command:
+      - -port=8080
+      - -host=0.0.0.0
+      - -P:firebase.auth.credentialsDir=/credentials
+    volumes:
+      - ./credentials:/credentials:ro
+    expose:
+      - "8080"
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - relay
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      RELAY_HOSTNAME: ${RELAY_HOSTNAME}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

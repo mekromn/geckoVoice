@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gecko Voice</string>
+    <string name="notification_channel_name">Google Voice</string>
+    <string name="notification_channel_description">Messages, calls, voicemail and other Google Voice web notifications</string>
+</resources>

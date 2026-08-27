@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Build-safe placeholders. Replace these with values from YOUR Firebase Android app.
+  Do not put a Firebase service-account JSON/private key here; that belongs only on the relay server.
+-->
+<resources>
+    <string name="google_app_id">REPLACE_ME</string>
+    <string name="project_id">REPLACE_ME</string>
+    <string name="google_api_key">REPLACE_ME</string>
+    <string name="gecko_voice_relay_base_url">https://REPLACE-ME.example</string>
+</resources>

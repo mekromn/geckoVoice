@@ -6,7 +6,7 @@ The core goal is simple: keep the Google Voice web experience, but stop needing 
 
 ## Status
 
-This is the v0.1 bootstrap focused on proving the hardest part first:
+The v0.1 bootstrap now compiles successfully in GitHub Actions. It is focused on proving the hardest part first:
 
 - GeckoView shell for `https://voice.google.com/`
 - persistent Gecko cookies/profile, so Google sign-in survives app restarts
@@ -22,6 +22,7 @@ This is the v0.1 bootstrap focused on proving the hardest part first:
 - FCM token-rotation → Gecko subscription-change notification
 - no periodic polling loop
 - GitHub Actions debug APK build
+- ARM64 validation APK optimized for Pixel-class devices without changing Gecko fidelity
 
 See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full data flow.
 
@@ -31,7 +32,7 @@ The source builds with placeholder push values, but real background push needs *
 
 ### 1. Firebase Android app
 
-Create a Firebase Android app. The release package ID is:
+Create a Firebase Android app. The package ID is:
 
 ```text
 com.mekromn.geckovoice
@@ -66,11 +67,14 @@ The relay receives the same standards-compliant encrypted Web Push request a bro
 
 ## Build
 
-Requirements:
+Validated toolchain:
 
 - JDK 17
-- Gradle 8.13
-- Android SDK 36
+- Gradle 9.7.1
+- Android Gradle Plugin 9.3.1
+- Android SDK 37.1 for compilation
+- targetSdk 36 for the initial runtime-validation phase
+- Kotlin Gradle Plugin 2.4.10 (used by AGP built-in Kotlin to match GeckoView's Kotlin metadata)
 
 Build locally:
 
